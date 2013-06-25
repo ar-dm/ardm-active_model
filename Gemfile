@@ -7,12 +7,11 @@ gemspec
 SOURCE         = ENV.fetch('SOURCE', :git).to_sym
 REPO_POSTFIX   = SOURCE == :path ? ''                                : '.git'
 DATAMAPPER     = SOURCE == :path ? Pathname(__FILE__).dirname.parent : 'https://github.com/ar-dm'
-DM_VERSION     = '~> 1.2.0'
+DM_VERSION     = '~> 1.2'
 CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
-RAILS_VERSION  = '~> 3.1.0'
+RAILS_VERSION  = [ '>= 3.0', '< 5.0' ]
 
 gem 'ardm-core',     DM_VERSION, SOURCE  => "#{DATAMAPPER}/ardm-core#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
-
 gem 'activemodel', RAILS_VERSION, :require => nil
 
 group :development do
