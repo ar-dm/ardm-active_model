@@ -1,31 +1,22 @@
 require 'pathname'
 
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+
+gemspec
 
 SOURCE         = ENV.fetch('SOURCE', :git).to_sym
 REPO_POSTFIX   = SOURCE == :path ? ''                                : '.git'
-DATAMAPPER     = SOURCE == :path ? Pathname(__FILE__).dirname.parent : 'http://github.com/datamapper'
+DATAMAPPER     = SOURCE == :path ? Pathname(__FILE__).dirname.parent : 'https://github.com/ar-dm'
 DM_VERSION     = '~> 1.2.0'
 CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
 RAILS_VERSION  = '~> 3.1.0'
 
-gem 'dm-core',     DM_VERSION,
-  SOURCE  => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}",
-  :branch => CURRENT_BRANCH
+gem 'ardm-core',     DM_VERSION, SOURCE  => "#{DATAMAPPER}/ardm-core#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
 
 gem 'activemodel', RAILS_VERSION, :require => nil
 
 group :development do
-
-  gem 'dm-validations', DM_VERSION,
-    SOURCE  => "#{DATAMAPPER}/dm-validations#{REPO_POSTFIX}",
-    :branch => CURRENT_BRANCH
-
-  gem 'jeweler',        '~> 1.6.4'
-  gem 'rake',           '~> 0.9.2'
-  gem 'rspec',          '~> 1.3.2'
-  gem 'test-unit',      '= 1.2.3'
-
+  gem 'ardm-validations', DM_VERSION, SOURCE  => "#{DATAMAPPER}/ardm-validations#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
 end
 
 platforms :mri_18 do
@@ -44,9 +35,7 @@ group :datamapper do
   plugins = plugins.to_s.tr(',', ' ').split.uniq
 
   plugins.each do |plugin|
-    gem plugin, DM_VERSION,
-      SOURCE  => "#{DATAMAPPER}/#{plugin}#{REPO_POSTFIX}",
-      :branch => CURRENT_BRANCH
+    gem plugin, DM_VERSION, SOURCE  => "#{DATAMAPPER}/#{plugin}#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
   end
 
 end
